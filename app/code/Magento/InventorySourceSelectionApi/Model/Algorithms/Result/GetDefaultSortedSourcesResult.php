@@ -94,7 +94,9 @@ class GetDefaultSortedSourcesResult
         $sourceItemSelections = [];
 
         $itemsTdDeliver = [];
+        $itemsTdDeliverSkus = [];
         foreach ($inventoryRequest->getItems() as $item) {
+            $itemsTdDeliverSkus[] = $item->getSku();
             $itemsTdDeliver[$item->getSku()] = $item->getQty();
         }
 
@@ -105,7 +107,7 @@ class GetDefaultSortedSourcesResult
 
         $sourceItems =
             $this->getInStockSourceItemsBySkusAndSortedSource->execute(
-                array_keys($itemsTdDeliver),
+                $itemsTdDeliverSkus,
                 $sortedSourceCodes
             );
 
